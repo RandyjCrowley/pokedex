@@ -1,0 +1,11 @@
+BASE_URL=https://api.tcgdex.net/v2/en/
+
+Data Structure:
+- Serie
+  - Sets
+    - Card
+
+Documentation Links:
+1. Sorting and Filtering: https://tcgdex.dev/rest/filtering-sorting-pagination
+2. Types and Helper Values: https://tcgdex.dev/rest/other-fields
+3. Error Handling: https://tcgdex.dev/errors/general
