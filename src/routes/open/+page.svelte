@@ -4,28 +4,31 @@
     let currentPacks = [];
 
     async function getPacks() {
-        const res = await fetch("https://api.tcgdex.net/v2/en/sets/base1");
-        const { cards } = await res.json();
-        let i = 0;
-        let randomCards = [];
-        while (i < 6) {
-            const index = Math.floor(Math.random() * cards.length);
-            randomCards[i] = cards[index];
-            i++;
+        try {
+            const res = await fetch("https://api.tcgdex.net/v2/en/sets/base1");
+            const { cards } = await res.json();
+
+            // Pick 6 random cards
+            const randomCards = Array.from(
+                { length: 6 },
+                () => cards[Math.floor(Math.random() * cards.length)],
+            );
+
+            saveItems(randomCards);
+            currentPacks = randomCards;
+        } catch (error) {
+            console.error("Error fetching cards:", error);
         }
-        saveItems(randomCards);
-        currentPacks = randomCards;
     }
 
     function saveItems(cards) {
         let lsCards = localStorage.getItem("cards");
-        console.log(lsCards);
-        if (lsCards == null) {
+
+        if (!lsCards) {
             localStorage.setItem("cards", JSON.stringify(cards));
         } else {
-            lsCards = JSON.parse(lsCards);
-
-            const newCards = [...lsCards, ...cards];
+            const parsedCards = JSON.parse(lsCards);
+            const newCards = [...parsedCards, ...cards];
             localStorage.setItem("cards", JSON.stringify(newCards));
         }
     }
@@ -33,20 +36,32 @@
     $: console.log(currentPacks);
 </script>
 
-<div class="flex justify-center mb-4">
+<div class="flex justify-center mb-6">
     <button
         on:click={getPacks}
-        class="border-2 p-2 bg-gray-200 rounded-md text-black font-bold"
+        class="px-6 py-3 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition duration-300"
     >
-        Open Pack</button
-    >
+        Open Pack
+    </button>
 </div>
-{#if currentPacks}
-    <div class="w-full justify-center">
-        <div class="grid grid-cols-2 gap-4">
+
+{#if currentPacks.length}
+    <div class="flex justify-center">
+        <div
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-screen-lg"
+        >
             {#each currentPacks as card}
-                <div transition:fade>
-                    <img src={card.image + "/low.png"} />
+                <div
+                    transition:fade
+                    class="bg-gray-800 p-4 rounded-lg shadow-lg"
+                >
+                    <a href={`/card/${card.id}`}>
+                        <img
+                            class="w-full h-auto rounded"
+                            src={card.image + "/low.png"}
+                            alt={card.name}
+                        />
+                    </a>
                 </div>
             {/each}
         </div>

@@ -3,9 +3,9 @@
     import "../app.css";
 </script>
 
-<main class="min-h-screen bg-primary text-white w-full">
+<main class="min-h-screen bg-gray-300 text-white">
     <NavBar />
-    <div class="p-8">
+    <div class="container mx-auto p-8">
         <slot />
     </div>
 </main>
