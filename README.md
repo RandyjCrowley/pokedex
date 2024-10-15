@@ -1,38 +1,26 @@
-# create-svelte
+**Pokedex: A Card Collecting Game**
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+Welcome to Pokedex, a card collecting game built with SvelteKit and Tailwind CSS. In this game, you can collect and display cards from the popular Pokémon Trading Card Game (TCG).
 
-## Creating a project
+**Features**
 
-If you're seeing this, you've probably already done this step. Congrats!
+* **Card Collection**: Save your collected cards in local storage and view them on the "Packs" page.
+* **Random Pack Generation**: Open a pack of 6 random cards on the "Open" page.
+* **Card Display**: View individual card details on the "Card" page.
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+**Getting Started**
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+1. Clone this repository: `git clone https://github.com/RandyjCrowley/pokedex`
+2. Install dependencies: `npm install` or `yarn install`
+3. Start the development server: `npm run dev` or `yarn dev`
 
-## Developing
+**Pages**
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+* **Packs**: View and filter your collected cards.
+* **Open**: Open a pack of 6 random cards.
+* **Card**: View individual card details.
 
-```bash
-npm run dev
+**API Endpoints**
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+* **GET /card/:slug**: Fetch a single card by slug from the TCGDex API.
+* **GET /sets/base1**: Fetch a list of cards from the TCGDex API (used for generating random packs).
